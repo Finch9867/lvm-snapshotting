@@ -17,7 +17,7 @@ Ther can only be one snapshot per vm using this playbook, this meening if you wa
 
 hostname:
 
-  - {vg: VOLGROUPNAME, orgvol: LVNAME, snapsize: SIZE_OF_SNAPSHOTVOLUME(g)}
+  `- {vg: VOLGROUPNAME, orgvol: LVNAME, snapsize: SIZE_OF_SNAPSHOTVOLUME(g)} `
 
 Volgroupname = Name of the  volume group
 
@@ -27,6 +27,7 @@ snapsize = Size of the snapshot in GB
 
 The task file tasks/main.yml excutes a loop over the vars against the hostname.
 
+```
 olafs@stornesle:[lvmsnap]> tree
 
 .
@@ -59,6 +60,7 @@ olafs@stornesle:[lvmsnap]> tree
 
     └── main.yml
 
+```
 
 ### **Usage **
 
@@ -67,20 +69,26 @@ olafs@stornesle:[lvmsnap]> tree
 You need root rights on the hypervisor
 
 
-2.) checkout the git repo
+2.)
+
+checkout the git repo
 
 git clone https://github.com/usegalaxy-no/lvm-snapshotting.git
 
-3.) change into the repo dir
+3.)
+
+change into the repo dir
 
 cd lvm-snapshotting/
 
-3.) edit the playbook site-lvmsnap.yml
+3.)
+
+edit the playbook site-lvmsnap.yml
 
 Add the hostname of the hypervisor and change the var "flavor" to predowntime to take a snapshot.
 
 ---
-
+```
 - hosts:
 
     - hestehov &lt;-- hostname of the hypervisor
@@ -97,6 +105,8 @@ Add the hostname of the hypervisor and change the var "flavor" to predowntime to
 
     - lvmsnap
 
+```
+
 4.) edit the var file roles/lvmsnap/var/main.yml
 
 comment out only the line which you want to use
@@ -106,7 +116,8 @@ If a VM contains more than one disk, you MUST snapshot all the disks!
 double check!
 
 double double check!
-´´´
+
+```
 ---
 
 # vars file for downtime
@@ -136,18 +147,20 @@ hestehov:
     - { vg: vmguest_vg, orgvol:  usegalaxy.no-root, snapsize: 20g }
 
     - { vg: vmguest_vg, orgvol:  usegalaxy.no-srv, snapsize: 100g }
-´´´
+```
 
 
-5.) Run a dry-run
+5.)
 
-ansible-playbook site-lvmsnap.yml --check -vvv
+Run a dry-run
+`ansible-playbook site-lvmsnap.yml --check -vvv`
 
 and check the output
 
-6.) If everything is fine run the playbook
+6.)
 
-ansible-playbook site-lvmsnap.yml
+If everything is fine run the playbook
+`ansible-playbook site-lvmsnap.yml`
 
 7.) A good idea is to save a copy of the var file so you can delete all the snapshots easily after the maintenance action  using this var file
 
@@ -159,6 +172,7 @@ The task files runs a loop over the var file and creates or deletes the snapshot
 
 The task file does not ask for confirmation while deleting, it deletes with force!
 
+```
 - name: Create a snapshot volume of the logical volume
 
   when: (flavour == 'predowntime')
@@ -190,7 +204,7 @@ The task file does not ask for confirmation while deleting, it deletes with forc
     force: yes
 
   loop: '{{ vars[inventory_hostname] }}'
-
+```
 
 ### **Recover/reset a VM**
 
@@ -198,10 +212,10 @@ To recover a VM the VM must be powered off.
 
 After that you can merge the snapshot into the original volume
 
-lvconvert --merge /path_to_vm_snapshot/
+`lvconvert --merge /path_to_vm_snapshot/`
 
 (replace the device path with the path to your snapshot)
-You can get the snapshot path by doing lvdisplay
+You can get the snapshot path by doing `lvdisplay`
 (Remember you want to merge the snapshot)
 
 If a VM contains more than one volume, you need to merge all the snapshots/volumes
