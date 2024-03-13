@@ -1,0 +1,12 @@
+---
+- hosts:
+    - hestehov
+  vars:
+    # Predowntime will create snapshot
+    flavour: predowntime
+    # Postdowntime will delete snapshot
+    #flavour: postdowntime
+  become: true
+
+  roles:
+    - lvmsnap

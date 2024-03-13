@@ -1,0 +1,17 @@
+---
+# vars file for downtime
+
+# usage:
+# hostname:
+#   - {vg: VOLGROUPNAME, orgvol: LVNAME, snapsize: SIZE_OF_SNAPSHOTVOLUME(g)}
+
+hestehov:
+  - { vg: vmguest_vg, orgvol:  db.usegalaxy.no-database, snapsize: 5g }
+  - { vg: vmguest_vg, orgvol:  db.usegalaxy.no-root, snapsize: 5g }
+  - { vg: vmguest_vg, orgvol:  db.usegalaxy.no-srv, snapsize: 50g }
+  - { vg: vmguest_vg, orgvol:  slurm.usegalaxy.no-docker, snapsize: 5g }
+  - { vg: vmguest_vg, orgvol:  slurm.usegalaxy.no-root, snapsize: 100g }
+  - { vg: vmguest_vg, orgvol:  slurm.usegalaxy.no-tmp, snapsize: 10g }
+  - { vg: vmguest_vg, orgvol:  usegalaxy.no-data, snapsize: 1000g }
+  - { vg: vmguest_vg, orgvol:  usegalaxy.no-root, snapsize: 20g }
+  - { vg: vmguest_vg, orgvol:  usegalaxy.no-srv, snapsize: 100g }

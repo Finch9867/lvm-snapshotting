@@ -1,0 +1,20 @@
+---
+# tasks file for downtime
+
+- name: Create a snapshot volume of the logical volume
+  when: (flavour == 'predowntime')
+  lvol:
+    vg: '{{ item.vg }}'
+    lv: '{{ item.orgvol }}'
+    snapshot: 'SNAP{{ item.orgvol }}'
+    size: '{{ item.snapsize }}'
+  loop: '{{ vars[inventory_hostname] }}'
+
+- name: Delete a snapshot volume of the logical volume
+  when: (flavour == 'postdowntime')
+  lvol:
+    vg: '{{ item.vg }}'
+    lv: 'SNAP{{ item.orgvol }}'
+    state: absent
+    force: true
+  loop: '{{ vars[inventory_hostname] }}'
