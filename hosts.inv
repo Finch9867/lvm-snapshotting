@@ -1,2 +1,4 @@
 [hvs]
 hestehov
+[all:vars]
+ansible_user = root
