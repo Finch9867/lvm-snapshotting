@@ -1,6 +1,6 @@
 ### **Introduction**
 
-Snapshotting is a feature of the Linux LVM. Snapshotting is a feature of the Linux LVM. All VMs which are installed on logical volumes on a Linux hypervisor can be "snapshotted" by using this feature. The snaphots includes the changes from the creation time of snapshot until now. If you need to rollback the snaphot, you reset the vm to the creation time (point-in-time-recovery).
+Snapshotting is a feature of the Linux LVM. All VMs which are installed on logical volumes on a Linux hypervisor can be "snapshotted" by using this feature. The snaphots includes the changes from the creation time of snapshot until now. If you need to rollback the snaphot, you reset the vm to the creation time (point-in-time-recovery).
 
 
 ### **Description of the role**
